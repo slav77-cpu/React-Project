@@ -1,5 +1,9 @@
-import Header from "../components/home/header/Header"
-import Home from "../components/home/Home"
+import { Route, Routes } from "react-router"
+
+import Home from "./components/home/Home"
+import Header from "./components/header/Header"
+import CarCreate from "./components/car-create/CarCreate"
+
 
 
 function App() {
@@ -9,7 +13,10 @@ function App() {
     <div className="min-h-screen bg-slate-100 flex flex-col">
 
       <Header />
-      <Home />
+      <Routes >
+        <Route path="/" element={<Home />} />
+        <Route path="/create" element={<CarCreate />} />
+      </Routes>
     </div>
      
     </>
