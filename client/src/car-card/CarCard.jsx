@@ -1,4 +1,4 @@
-// src/components/car/CarCard.jsx
+
 import { Link } from "react-router-dom";
 
 export default function CarCard({ car }) {

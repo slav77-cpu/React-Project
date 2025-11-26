@@ -1,0 +1,49 @@
+{
+  "a1b2c3d4-e5f6-47aa-8899-1234567890ab": {
+    "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+    "brand": "BMW",
+    "model": "M4 Competition",
+    "price": 87000,
+    "year": "2021",
+    "horsepower": 510,
+    "imageUrl": "https://cdn.bmwblog.com/wp-content/uploads/2020/09/BMW-M4-F82.jpg",
+    "description": "High–performance sports coupe equipped with a twin–turbo inline–six, aggressive handling and luxury interior.",
+    "_createdOn": 1617194350000
+  },
+
+  "bb99ee77-aa44-4c33-b111-ffeeddccbbaa": {
+    "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
+    "brand": "Audi",
+    "model": "RS6 Avant",
+    "price": 125000,
+    "year": "2022",
+    "horsepower": 600,
+    "imageUrl": "https://cdn.motor1.com/images/mgl/Q7zJ7/s1/audi-rs6-avant.jpg",
+    "description": "A legendary performance wagon with Quattro AWD, a 4.0L twin-turbo V8 and unmatched practicality.",
+    "_createdOn": 1645708800000
+  },
+
+  "cc11dd22-ee33-4fff-8888-bbccaa998877": {
+    "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+    "brand": "Mercedes-Benz",
+    "model": "AMG GT 63 S",
+    "price": 142000,
+    "year": "2020",
+    "horsepower": 639,
+    "imageUrl": "https://cdn.motor1.com/images/mgl/2Jmmj/s1/2021-mercedes-amg-gt-63-s-4-door.jpg",
+    "description": "A luxurious four–door coupe blending raw AMG power with comfort, refinement and striking design.",
+    "_createdOn": 1617194450000
+  },
+
+  "dd22cc33-bb44-4999-aabb-887766554433": {
+    "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
+    "brand": "Porsche",
+    "model": "911 Turbo S",
+    "price": 204000,
+    "year": "2023",
+    "horsepower": 650,
+    "imageUrl": "https://cdn.motor1.com/images/mgl/v77yJ/s1/porsche-911-turbo-s.jpg",
+    "description": "The ultimate everyday supercar with brutal acceleration, razor–sharp handling and iconic design.",
+    "_createdOn": 1607558400000
+  }
+}
