@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router"
 import Home from "./components/home/Home"
 import Header from "./components/header/Header"
 import CarCreate from "./components/car-create/CarCreate"
+import Cars from "./components/cars/Cars"
+import CarDetails from "./components/car-details/CarDetails"
 
 
 
@@ -16,6 +18,8 @@ function App() {
       <Routes >
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CarCreate />} />
+        <Route path="/cars" element={<Cars />} />
+        <Route path="/cars/:carId" element={<CarDetails />} />
       </Routes>
     </div>
      

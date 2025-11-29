@@ -1,13 +1,15 @@
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
+
+const baseLinkClasses =
+  "text-sm font-medium transition-colors duration-150 px-2 py-1";
+const activeLinkClasses =
+  "text-emerald-300 border-b-2 border-emerald-400";
 
 export default function Header() {
-    const baseLinkClasses =
-    "text-sm font-medium hover:text-emerald-400 transition-colors";
-    const activeLinkClasses = "text-emerald-400";
-    return (
-    <header className="bg-slate-900 text-slate-50">
+  return (
+    <header className="bg-slate-950/90 text-slate-50 border-b border-slate-800">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        {/* Logo */}
+        
         <NavLink
           to="/"
           className="flex items-center gap-2 text-lg font-semibold tracking-tight"
@@ -18,13 +20,13 @@ export default function Header() {
           <span>CarHub</span>
         </NavLink>
 
-        {/* Main navigation */}
+        
         <div className="flex items-center gap-4">
           <NavLink
             to="/"
             className={({ isActive }) =>
               `${baseLinkClasses} ${
-                isActive ? activeLinkClasses : "text-slate-200"
+                isActive ? activeLinkClasses : "text-slate-200 hover:text-emerald-300"
               }`
             }
           >
@@ -32,35 +34,37 @@ export default function Header() {
           </NavLink>
 
           <NavLink
-            to="/catalog"
+            to="/cars"
             className={({ isActive }) =>
               `${baseLinkClasses} ${
-                isActive ? activeLinkClasses : "text-slate-200"
+                isActive ? activeLinkClasses : "text-slate-200 hover:text-emerald-300"
               }`
             }
           >
-            Catalog
+            Cars
           </NavLink>
-            <NavLink 
-            to='/create'
+
+          <NavLink
+            to="/create"
             className={({ isActive }) =>
-                `${baseLinkClasses} ${
-                    isActive ? activeLinkClasses : "text-slate-200"
-                }`
-                }
-                >
-                Create Car
-                </NavLink>
+              `${baseLinkClasses} ${
+                isActive ? activeLinkClasses : "text-slate-200 hover:text-emerald-300"
+              }`
+            }
+          >
+            Create Car
+          </NavLink>
         </div>
 
-        {/* Auth navigation */}
+        
         <div className="flex items-center gap-3 text-sm">
           <NavLink
             to="/login"
             className={({ isActive }) =>
-              `rounded-full border border-slate-500 px-3 py-1 text-xs font-medium hover:border-emerald-400 hover:text-emerald-300 ${
-                isActive ? "border-emerald-400 text-emerald-300" : ""
-              }`
+              `rounded-full border border-slate-600 px-3 py-1 text-xs font-medium 
+               hover:border-emerald-400 hover:text-emerald-300 ${
+                 isActive ? "border-emerald-400 text-emerald-300" : "text-slate-200"
+               }`
             }
           >
             Log in
@@ -69,16 +73,16 @@ export default function Header() {
           <NavLink
             to="/register"
             className={({ isActive }) =>
-              `rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-slate-900 hover:bg-emerald-400 ${
-                isActive ? "ring-2 ring-emerald-300" : ""
-              }`
+              `rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-slate-900 
+               hover:bg-emerald-400 ${
+                 isActive ? "ring-2 ring-emerald-300" : ""
+               }`
             }
           >
-             Register
+            Register
           </NavLink>
         </div>
       </nav>
     </header>
   );
-  
 }

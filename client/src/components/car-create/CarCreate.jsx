@@ -1,7 +1,10 @@
-// src/pages/CreateCar.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import request from "../../utils/request.js";
 
 export default function CarCreate() {
+  const navigate = useNavigate();
+
   const [formValues, setFormValues] = useState({
     brand: "",
     model: "",
@@ -21,11 +24,43 @@ export default function CarCreate() {
     }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    // TODO: later connect to backend (POST /data/games)
-    console.log("Create car form values:", formValues);
+    
+    const data = {
+      ...formValues,
+      year: Number(formValues.year),
+      horsepower: Number(formValues.horsepower),
+      price: Number(formValues.price),
+    };
+
+    try {
+      const createdCar = await request(
+        "http://localhost:3030/data/cars",
+        "POST",
+        data
+      );
+
+      console.log("Created car:", createdCar);
+
+      
+      setFormValues({
+        brand: "",
+        model: "",
+        year: "",
+        horsepower: "",
+        price: "",
+        imageUrl: "",
+        description: "",
+      });
+
+      
+      navigate("/cars");
+      
+    } catch (err) {
+      alert(err.message);
+    }
   }
 
   return (
@@ -35,12 +70,11 @@ export default function CarCreate() {
       </h1>
 
       <p className="mb-6 text-sm text-slate-600">
-        Fill in the details below to create a new car listing. Later we will
-        send this data to the backend API.
+        Fill in the details below to create a new car listing.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Brand + Model */}
+        
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label
@@ -81,7 +115,7 @@ export default function CarCreate() {
           </div>
         </div>
 
-        {/* Year + Horsepower + Price */}
+        
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <label
@@ -145,7 +179,7 @@ export default function CarCreate() {
           </div>
         </div>
 
-        {/* Image URL */}
+       
         <div>
           <label
             htmlFor="imageUrl"
@@ -165,7 +199,7 @@ export default function CarCreate() {
           />
         </div>
 
-        {/* Description */}
+        
         <div>
           <label
             htmlFor="description"
