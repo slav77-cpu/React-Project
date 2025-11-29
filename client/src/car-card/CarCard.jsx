@@ -53,7 +53,7 @@ export default function CarCard({ car }) {
           </span>
 
           <Link
-            to={`/catalog/${car._id}`}
+            to={`/cars/${car._id}`}
             className="rounded-full px-3 py-1.5 text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800"
           >
             Details

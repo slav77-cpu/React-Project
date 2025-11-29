@@ -6,8 +6,8 @@
     "price": 87000,
     "year": "2021",
     "horsepower": 510,
-    "imageUrl": "https://cdn.bmwblog.com/wp-content/uploads/2020/09/BMW-M4-F82.jpg",
-    "description": "High–performance sports coupe equipped with a twin–turbo inline–six, aggressive handling and luxury interior.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bmw-m.com%2Fen%2Fall-models%2Foverview-m-and-m-performance%2Fbmw-m4-competition-x-kith%2F2020%2Fbmw-m4-competition-x-kith.html&psig=AOvVaw1e4LBCw8jMGu6RrCklSW_x&ust=1764276543290000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNii07vYkJEDFQAAAAAdAAAAABAM",
+    "description": "High-performance sports coupe equipped with a twin-turbo inline-six, aggressive handling and luxury interior.",
     "_createdOn": 1617194350000
   },
 
@@ -18,7 +18,7 @@
     "price": 125000,
     "year": "2022",
     "horsepower": 600,
-    "imageUrl": "https://cdn.motor1.com/images/mgl/Q7zJ7/s1/audi-rs6-avant.jpg",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.netcarshow.com%2Faudi%2F2024-rs6_avant_gt%2F&psig=AOvVaw0ScFZ0SoY0pzpJNAE02Mus&ust=1764276377624000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCJi7sunXkJEDFQAAAAAdAAAAABAE",
     "description": "A legendary performance wagon with Quattro AWD, a 4.0L twin-turbo V8 and unmatched practicality.",
     "_createdOn": 1645708800000
   },
@@ -30,8 +30,8 @@
     "price": 142000,
     "year": "2020",
     "horsepower": 639,
-    "imageUrl": "https://cdn.motor1.com/images/mgl/2Jmmj/s1/2021-mercedes-amg-gt-63-s-4-door.jpg",
-    "description": "A luxurious four–door coupe blending raw AMG power with comfort, refinement and striking design.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdizzyriders.bg%2Fpost%2F4835%2Fmercedes-benz-amg-gt-63-s-shte-bori-panamera-s-639-konya-i-ldrift-moder&psig=AOvVaw0ffDLD0Q7OpqstunOe0exh&ust=1764276459745000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCJiDnZLYkJEDFQAAAAAdAAAAABAM",
+    "description": "A luxurious four-door coupe blending raw AMG power with comfort, refinement and striking design.",
     "_createdOn": 1617194450000
   },
 
@@ -43,7 +43,7 @@
     "year": "2023",
     "horsepower": 650,
     "imageUrl": "https://cdn.motor1.com/images/mgl/v77yJ/s1/porsche-911-turbo-s.jpg",
-    "description": "The ultimate everyday supercar with brutal acceleration, razor–sharp handling and iconic design.",
+    "description": "The ultimate everyday supercar with brutal acceleration, razor-sharp handling and iconic design.",
     "_createdOn": 1607558400000
   }
 }

@@ -9,13 +9,10 @@ export default function Home() {
   const [latestCars, setLatestCars] = useState([]);
 
   useEffect(() => {
-    request("http://localhost:3030/jsonstore/cars")
+    request("http://localhost:3030/data/cars?sortBy=_createdOn%20desc&pageSize=3")
       .then((data) => {
-        const recentCars = Object.values(data)
-          .sort((a, b) => b._createdOn - a._createdOn)
-          .slice(0, 3);
-
-        setLatestCars(recentCars);
+  
+        setLatestCars(data);
       })
       .catch((err) => alert(err.message));
   }, []);
