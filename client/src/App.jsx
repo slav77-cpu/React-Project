@@ -7,6 +7,7 @@ import Cars from "./components/cars/Cars"
 import CarDetails from "./components/car-details/CarDetails"
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
+import CarEdit from "./components/car-edit/CarEdit"
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/cars/:carId" element={<CarDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/cars/:carId/edit" element={<CarEdit />} />
       </Routes>
     </div>
      
