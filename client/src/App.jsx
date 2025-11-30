@@ -5,6 +5,7 @@ import Header from "./components/header/Header"
 import CarCreate from "./components/car-create/CarCreate"
 import Cars from "./components/cars/Cars"
 import CarDetails from "./components/car-details/CarDetails"
+import Login from "./components/login/Login"
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/create" element={<CarCreate />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/cars/:carId" element={<CarDetails />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
      
