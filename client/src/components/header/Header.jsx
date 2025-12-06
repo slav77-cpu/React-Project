@@ -1,4 +1,5 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useAuth } from "../../context/authContext";
 
 const baseLinkClasses =
   "text-sm font-medium transition-colors duration-150 px-2 py-1";
@@ -6,6 +7,13 @@ const activeLinkClasses =
   "text-emerald-300 border-b-2 border-emerald-400";
 
 export default function Header() {
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logout();
+    navigate("/");
+  }
   return (
     <header className="bg-slate-950/90 text-slate-50 border-b border-slate-800">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
@@ -32,7 +40,7 @@ export default function Header() {
           >
             Home
           </NavLink>
-
+            
           <NavLink
             to="/cars"
             className={({ isActive }) =>
@@ -43,7 +51,7 @@ export default function Header() {
           >
             Cars
           </NavLink>
-
+           {isAuthenticated && (
           <NavLink
             to="/create"
             className={({ isActive }) =>
@@ -51,13 +59,17 @@ export default function Header() {
                 isActive ? activeLinkClasses : "text-slate-200 hover:text-emerald-300"
               }`
             }
+
           >
             Create Car
           </NavLink>
+           )}
         </div>
 
         
         <div className="flex items-center gap-3 text-sm">
+          {!isAuthenticated ? (
+             <>
           <NavLink
             to="/login"
             className={({ isActive }) =>
@@ -81,6 +93,22 @@ export default function Header() {
           >
             Register
           </NavLink>
+          </>
+          ) : (
+            <> 
+             <span className="text-xs text-slate-300 italic">
+                {user?.email}
+              </span>
+            
+            <button
+              onClick={handleLogout}
+              className="rounded-full border border-slate-600 px-3 py-1 text-xs font-medium 
+                         text-slate-200 hover:border-red-400 hover:text-red-300"
+            >
+              Logout
+            </button>
+            </>
+          )}
         </div>
       </nav>
     </header>

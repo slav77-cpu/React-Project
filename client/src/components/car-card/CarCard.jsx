@@ -1,6 +1,9 @@
 import { Link } from "react-router";
 
+
 export default function CarCard({ car }) {
+
+  
   const title = `${car.brand} ${car.model}`;
 
   return (
@@ -35,6 +38,7 @@ export default function CarCard({ car }) {
           >
             View details
           </Link>
+          
         </div>
       </div>
     </div>

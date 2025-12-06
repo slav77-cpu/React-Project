@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import request from "../../utils/request.js";
+import { useAuth } from "../../context/authContext.jsx";
 
 export default function CarDetails() {
   const { carId } = useParams();
   const navigate = useNavigate();
+  const { user} = useAuth();
   const [car, setCar] = useState(null);
-
+  
   useEffect(() => {
     request(`http://localhost:3030/data/cars/${carId}`)
-      .then((data) => setCar(data))
-      .catch((err) => alert(err.message));
+    .then((data) => setCar(data))
+    .catch((err) => alert(err.message));
   }, [carId]);
-
+  
   if (!car) {
     return (
       <div className="py-20 text-center text-xl text-slate-600">
@@ -20,8 +22,9 @@ export default function CarDetails() {
       </div>
     );
   }
-
+  
   const title = `${car.brand} ${car.model}`;
+  const isOwner = user?._id === carId;
 
   return (
     <div
@@ -66,9 +69,9 @@ export default function CarDetails() {
               {car.description}
             </p>
 
-            {/* ACTION BUTTONS (за по-късно логин логика) */}
+            
+              {isOwner && (
             <div className="flex gap-4 pt-4">
-
               <Link
                 to={`/cars/${carId}/edit`}
                 className="px-4 py-2 rounded-md bg-emerald-500 text-slate-900 font-semibold hover:bg-emerald-400"
@@ -84,7 +87,7 @@ export default function CarDetails() {
               </button>
 
             </div>
-
+            )}
           </div>
 
         </div>
@@ -98,7 +101,12 @@ async function handleDelete(id, navigate) {
   const choice = confirm("Are you sure you want to delete this car?");
   if (!choice) return;
 
-  await request(`http://localhost:3030/data/cars/${id}`, "DELETE");
+  try {
+    await request(`http://localhost:3030/data/cars/${id}`, "DELETE");
+    navigate("/cars");
+  } catch (err) {
+    alert(err.message);
+  }
 
   navigate("/cars");
 }

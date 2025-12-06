@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import request from "../../utils/request";
+import { useAuth } from "../../context/authContext";
 
 export default function Login() {
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -35,14 +36,18 @@ export default function Login() {
 
     if (!values.email.trim()) {
       newErrors.email = "Email is required.";
-    } else if (!/^[^@]+@[^@]+\.[^@]+$/.test(values.email)) {
+    } else if (values.email.length < 7) {
+      newErrors.email = "Email must be at least 7 characters.";
+
+    }
+     else if (!/^[^@]+@[^@]+\.[^@]+$/.test(values.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
 
     if (!values.password.trim()) {
       newErrors.password = "Password is required.";
-    } else if (values.password.length < 3) {
-      newErrors.password = "Password must be at least 3 characters.";
+    } else if (values.password.length < 4) {
+      newErrors.password = "Password must be at least 4 characters.";
     }
 
     return newErrors;
@@ -61,22 +66,7 @@ export default function Login() {
     try {
       setIsSubmitting(true);
 
-      const result = await request(
-        "http://localhost:3030/users/login",
-        "POST",
-        {
-          email: formValues.email,
-          password: formValues.password,
-        }
-      );
-
-      
-      localStorage.setItem("accessToken", result.accessToken);
-      localStorage.setItem("userId", result._id);
-      localStorage.setItem("email", result.email);
-
-      // TODO:  AuthContext –  setUser(result)
-
+       await login(formValues.email.trim(), formValues.password.trim());
       navigate("/"); 
     } catch (err) {
       console.error(err);
