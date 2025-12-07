@@ -3,19 +3,47 @@ import { useParams, Link, useNavigate } from "react-router";
 import request from "../../utils/request.js";
 import { useAuth } from "../../context/authContext.jsx";
 
+import {getLikesCount, getUserLike, addLike} from '../../services/likeService.js';
+
 export default function CarDetails() {
   const { carId } = useParams();
   const navigate = useNavigate();
   const { user} = useAuth();
   const [car, setCar] = useState(null);
+
+  const [likesCount, setLikesCount] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  useEffect(() => {
-    request(`http://localhost:3030/data/cars/${carId}`)
-    .then((data) => setCar(data))
-    .catch((err) => alert(err.message));
-  }, [carId]);
+   useEffect(() => {
+    async function fetchData() {
+      try {
+       
+        const carData = await request(`http://localhost:3030/data/cars/${carId}`);
+        setCar(carData);
+
+       
+        const likes = await getLikesCount(carId);
+        setLikesCount(likes);
+
+        
+        if (user?._id) {
+          const userLike = await getUserLike(carId, user._id);
+          setHasLiked(!!userLike);
+        } else {
+          setHasLiked(false);
+        }
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [carId, user?._id]);
   
-  if (!car) {
+  if ( isLoading||!car) {
     return (
       <div className="py-20 text-center text-xl text-slate-600">
         Loading car details...
@@ -25,6 +53,34 @@ export default function CarDetails() {
   
   const title = `${car.brand} ${car.model}`;
   const isOwner = user?._id === car._ownerId;
+
+
+  // DELETE handler
+async function handleDelete(id, navigate) {
+  const choice = confirm("Are you sure you want to delete this car?");
+  if (!choice) return;
+
+  try {
+    await request(`http://localhost:3030/data/cars/${id}`, "DELETE");
+    navigate("/cars");
+  } catch (err) {
+    alert(err.message);
+  }
+
+  
+}
+// LIKE handler 
+async function handleLike() {
+    try {
+      await addLike(carId);
+      setHasLiked(true);
+      setLikesCount((c) => c + 1);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+  const canLike =
+    user && !isOwner && !hasLiked;
 
   return (
     <div
@@ -68,8 +124,12 @@ export default function CarDetails() {
             <p className="text-slate-700 leading-relaxed">
               {car.description}
             </p>
+             {/* Likes info */}
+            <p className="mt-4 text-sm text-slate-600">
+              <span className="font-semibold">Likes:</span> {likesCount}
+            </p>
 
-            
+            {/* ACTION BUTTONS */}
               {isOwner && (
             <div className="flex gap-4 pt-4">
               <Link
@@ -88,6 +148,15 @@ export default function CarDetails() {
 
             </div>
             )}
+            {/* Like – само за логнат не-owner, който още не е лайкнал */}
+              {canLike && (
+                <button
+                  onClick={handleLike}
+                  className="px-4 py-2 rounded-md bg-slate-900 text-slate-50 font-semibold hover:bg-slate-800"
+                >
+                 ♥️ Like
+                </button>
+              )}
           </div>
 
         </div>
@@ -96,17 +165,4 @@ export default function CarDetails() {
   );
 }
 
-// DELETE handler
-async function handleDelete(id, navigate) {
-  const choice = confirm("Are you sure you want to delete this car?");
-  if (!choice) return;
 
-  try {
-    await request(`http://localhost:3030/data/cars/${id}`, "DELETE");
-    navigate("/cars");
-  } catch (err) {
-    alert(err.message);
-  }
-
-  
-}
