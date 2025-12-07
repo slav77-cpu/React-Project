@@ -1,16 +1,32 @@
-# React + Vite
+# CarHub – React Car Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CarHub is a Single Page Application built with React for the React.js course at SoftUni.  
+It represents a small car marketplace where users can browse car listings, see details, and manage their own cars.
 
-Currently, two official plugins are available:
+## 🧩 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Public Area
+- Home page with latest 3 added cars
+- Cars catalog page (`/cars`) – list of all cars
+- Car details page (`/cars/:carId`)
 
-## React Compiler
+### Private Area
+- User authentication (login / register / logout)
+- Create car (`/create`)
+- Edit car (`/cars/:carId/edit`)
+- Delete car (only by the owner)
+- Owner-only actions visible only to the creator of the car record
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> Guests can browse the catalog and the details page, but **cannot** create / edit / delete cars.
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React + React Router
+- Context API (AuthContext) for authentication state
+- React Hooks: `useState`, `useEffect`, `useContext`, `useReducer` (if used)
+- Tailwind CSS for styling
+- Custom request helper for HTTP calls
+- SoftUni Practice Server (REST API, collection: `/data/cars`)
+
+## 🧱 Architecture
+

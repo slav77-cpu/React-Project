@@ -8,6 +8,9 @@ import CarDetails from "./components/car-details/CarDetails"
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
 import CarEdit from "./components/car-edit/CarEdit"
+import GuestGuard from "./guards/GuestGard"
+import PrivateGuard from "./guards/PrivateGuard"
+import NotFound from "./components/not-found/NotFound404"
 
 
 
@@ -17,16 +20,29 @@ function App() {
     <>
     <div className="min-h-screen bg-slate-100 flex flex-col">
 
+
       <Header />
+      <main> 
       <Routes >
+        {/* Public routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/create" element={<CarCreate />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/cars/:carId" element={<CarDetails />} />
+
+        {/* Guest-only routes */}
+        <Route element={<GuestGuard />}> 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        </Route>
+
+        {/* Private routes (only logged-in users) */}
+        <Route element={<PrivateGuard />}> 
+        <Route path="/create" element={<CarCreate />} />
         <Route path="/cars/:carId/edit" element={<CarEdit />} />
+        </Route>
+        <Route path="*" element={<NotFound/>} />
       </Routes>
+      </main>
     </div>
      
     </>
