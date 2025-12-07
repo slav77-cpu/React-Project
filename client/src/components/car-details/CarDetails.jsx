@@ -24,7 +24,7 @@ export default function CarDetails() {
   }
   
   const title = `${car.brand} ${car.model}`;
-  const isOwner = user?._id === carId;
+  const isOwner = user?._id === car._ownerId;
 
   return (
     <div
@@ -108,5 +108,5 @@ async function handleDelete(id, navigate) {
     alert(err.message);
   }
 
-  navigate("/cars");
+  
 }
