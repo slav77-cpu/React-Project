@@ -11,6 +11,7 @@ import CarEdit from "./components/car-edit/CarEdit"
 import GuestGuard from "./guards/GuestGard"
 import PrivateGuard from "./guards/PrivateGuard"
 import NotFound from "./components/not-found/NotFound404"
+import Profile from "./components/profile/Profile"
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route element={<PrivateGuard />}> 
         <Route path="/create" element={<CarCreate />} />
         <Route path="/cars/:carId/edit" element={<CarEdit />} />
+        <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<NotFound/>} />
       </Routes>

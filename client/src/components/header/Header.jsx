@@ -100,6 +100,19 @@ export default function Header() {
                 {user?.email}
               </span>
             
+              <NavLink
+      to="/profile"
+      className={({ isActive }) =>
+        `${baseLinkClasses} ${
+          isActive
+            ? activeLinkClasses
+            : "text-slate-200 hover:text-emerald-300"
+        }`
+      }
+    >
+      Profile
+    </NavLink>
+
             <button
               onClick={handleLogout}
               className="rounded-full border border-slate-600 px-3 py-1 text-xs font-medium 
