@@ -16,6 +16,7 @@ export default function CarEdit() {
     description: "",
   });
 
+   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
  
@@ -39,6 +40,8 @@ export default function CarEdit() {
         setIsLoading(false);
       } catch (err) {
         alert(err.message);
+      }  finally {
+        setIsLoading(false);
       }
     }
 
@@ -46,6 +49,74 @@ export default function CarEdit() {
   }, [carId]);
 
   
+  
+  function validate(values) {
+    const newErrors = {};
+    const currentYear = new Date().getFullYear();
+    
+    
+    if (!values.brand.trim()) {
+      newErrors.brand = "Brand is required.";
+    } else if (!/^[A-Za-z\s-]+$/.test(values.brand.trim())) {
+      newErrors.brand = "Brand must contain only letters.";
+    }
+    
+    
+    if (!values.model.trim()) {
+      newErrors.model = "Model is required.";
+    }
+    
+    
+    const yearNum = Number(values.year);
+    if (!values.year.trim()) {
+      newErrors.year = "Year is required.";
+    } else if (Number.isNaN(yearNum)) {
+      newErrors.year = "Year must be a number.";
+    } else if (yearNum < 1886 || yearNum > currentYear + 1) {
+      newErrors.year = `Year must be between 1886 and ${currentYear + 1}.`;
+    }
+    
+    
+    const hpNum = Number(values.horsepower);
+    if (!values.horsepower.trim()) {
+      newErrors.horsepower = "Horsepower is required.";
+    } else if (Number.isNaN(hpNum)) {
+      newErrors.horsepower = "Horsepower must be a number.";
+    } else if (hpNum < 10) {
+      newErrors.horsepower = "Horsepower must be at least 10 hp.";
+    }
+    
+    
+    const priceNum = Number(values.price);
+    if (!values.price.trim()) {
+      newErrors.price = "Price is required.";
+    } else if (Number.isNaN(priceNum)) {
+      newErrors.price = "Price must be a number.";
+    } else if (priceNum <= 100) {
+      newErrors.price = "Price must be at least 100 €.";
+    }
+    
+    
+    if (!values.imageUrl.trim()) {
+      newErrors.imageUrl = "Image URL is required.";
+    } else if (
+      !/^https?:\/\/.+/.test(values.imageUrl.trim()) &&
+      !values.imageUrl.trim().startsWith("/")
+    ) {
+      newErrors.imageUrl =
+      "Image URL must start with http(s):// or be a relative path (/images/...).";
+    }
+    
+    
+    if (!values.description.trim()) {
+      newErrors.description = "Description is required.";
+    } else if (values.description.trim().length < 10) {
+      newErrors.description = "Description must be at least 10 characters long.";
+    }
+    
+    return newErrors;
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -53,11 +124,21 @@ export default function CarEdit() {
       ...state,
       [name]: value,
     }));
+    setErrors((state) => ({
+      ...state,
+      [name]: "",
+    }));
   }
-
+  
   
   async function handleSubmit(e) {
     e.preventDefault();
+
+ const validationErrors = validate(formValues);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const data = {
       ...formValues,
@@ -72,7 +153,6 @@ export default function CarEdit() {
         "PUT",
         data
       );
-
       
       navigate(`/cars/${carId}`);
     } catch (err) {
@@ -113,8 +193,15 @@ export default function CarEdit() {
               required
               value={formValues.brand}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+               className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+                errors.brand
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                  : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+              }`}
             />
+            {errors.brand && (
+              <p className="mt-1 text-xs text-red-600">{errors.brand}</p>
+            )}
           </div>
 
           <div>
@@ -131,8 +218,15 @@ export default function CarEdit() {
               required
               value={formValues.model}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+               className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+                errors.model
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                  : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+              }`}
             />
+            {errors.model && (
+              <p className="mt-1 text-xs text-red-600">{errors.model}</p>
+            )}
           </div>
         </div>
 
@@ -149,13 +243,20 @@ export default function CarEdit() {
               id="year"
               name="year"
               type="number"
-              min="1900"
+              min="1886"
               max="2100"
               required
               value={formValues.year}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+               className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+                errors.year
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                  : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+              }`}
             />
+            {errors.year && (
+              <p className="mt-1 text-xs text-red-600">{errors.year}</p>
+            )}
           </div>
 
           <div>
@@ -169,12 +270,19 @@ export default function CarEdit() {
               id="horsepower"
               name="horsepower"
               type="number"
-              min="0"
+              min="10"
               required
               value={formValues.horsepower}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+                errors.horsepower
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                  : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+              }`}
             />
+            {errors.horsepower && (
+              <p className="mt-1 text-xs text-red-600">{errors.horsepower}</p>
+            )}
           </div>
 
           <div>
@@ -188,12 +296,19 @@ export default function CarEdit() {
               id="price"
               name="price"
               type="number"
-              min="0"
+              min="1"
               required
               value={formValues.price}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+                errors.price
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                  : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+              }`}
             />
+            {errors.price && (
+              <p className="mt-1 text-xs text-red-600">{errors.price}</p>
+            )}
           </div>
         </div>
 
@@ -212,8 +327,15 @@ export default function CarEdit() {
             required
             value={formValues.imageUrl}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+              errors.imageUrl
+                ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+            }`}
           />
+          {errors.imageUrl && (
+            <p className="mt-1 text-xs text-red-600">{errors.imageUrl}</p>
+          )}
         </div>
 
     
@@ -231,8 +353,15 @@ export default function CarEdit() {
             required
             value={formValues.description}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className={`w-full rounded-xl border px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-1 ${
+              errors.description
+                ? "border-red-400 focus:border-red-500 focus:ring-red-500"
+                : "border-slate-300 focus:border-emerald-500 focus:ring-emerald-500"
+            }`}
           />
+          {errors.description && (
+            <p className="mt-1 text-xs text-red-600">{errors.description}</p>
+          )}
         </div>
 
         <button
