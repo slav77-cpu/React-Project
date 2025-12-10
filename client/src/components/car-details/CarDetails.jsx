@@ -11,6 +11,7 @@ import {
 import {
   getCommentsByCar,
   addComment,
+  deleteComment,
 } from "../../services/commentService.js";
 
 export default function CarDetails() {
@@ -122,6 +123,20 @@ async function handleLike() {
       setIsSubmittingComment(false);
     }
   }
+
+  async function handleCommentDelete(commentId) {
+  const choice = confirm("Are you sure you want to delete this comment?");
+  if (!choice) return;
+
+  try {
+    await deleteComment(commentId);
+
+    
+    setComments((state) => state.filter((c) => c._id !== commentId));
+  } catch (err) {
+    alert(err.message);
+  }
+}
 
   return (
     <div
@@ -265,6 +280,14 @@ async function handleLike() {
                           {new Date(c._createdOn).toLocaleString()}
                         </span>
                       )}
+                      {user && user._id === c._ownerId && (
+          <button
+            onClick={() => handleCommentDelete(c._id)}
+            className="text-[11px] text-red-600 hover:underline"
+          >
+            Delete
+          </button>
+        )}
                     </div>
                     <p className="text-slate-700 break-words">{c.text}</p>
                   </li>

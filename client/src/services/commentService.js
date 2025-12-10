@@ -16,3 +16,6 @@ const load = encodeURIComponent('owner=_ownerId:users');
 export async function addComment(carId, text,) {
   return request(baseUrl, "POST", { carId, text });
 }
+export async function deleteComment(commentId) {
+  return request(`${baseUrl}/${commentId}`, "DELETE");
+}
